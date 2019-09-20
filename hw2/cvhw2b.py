@@ -13,4 +13,5 @@ for i in range(row):
 
 a = np.arange(256)
 plt.bar(a,lenaHistogram)
-plt.show()
+plt.savefig("histogram",format="png")
+#plt.show()
