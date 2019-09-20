@@ -15,4 +15,4 @@ for i in range(row):
             img[i][j]=0
 im=Image.fromarray(img)
 im.show()
-im.save('lena_binary',format='BMP')
+im.save('lena_binary.bmp',format='BMP')
