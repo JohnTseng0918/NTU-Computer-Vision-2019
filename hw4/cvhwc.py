@@ -4,7 +4,8 @@ import numpy as np
 im=Image.open("lena.bmp")
 row,col=im.size
 
-img=np.empty((row,col),dtype=int)
+img=np.asarray(im)
+img.flags.writeable = True
 kernel=np.array([[0,1,1,1,0],
                  [1,1,1,1,1],
                  [1,1,1,1,1],
@@ -15,8 +16,7 @@ opening=np.zeros((row,col),dtype=int)
 
 for i in range(row):
     for j in range(col):
-        tmp=im.getpixel((i,j))
-        if tmp>=128:
+        if img[i][j]>=128:
             img[i][j]=1
         else:
             img[i][j]=0
@@ -41,7 +41,6 @@ for i in range(row):
                         break
                     opening[i+x][j+y]=255
 
-opening=opening.transpose()
 im=Image.fromarray(opening)
 im=im.convert("L")
 im.show()

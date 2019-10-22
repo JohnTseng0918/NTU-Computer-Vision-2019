@@ -4,7 +4,8 @@ import numpy as np
 im=Image.open("lena.bmp")
 row,col=im.size
 
-img=np.empty((row,col),dtype=int)
+img=np.asarray(im)
+img.flags.writeable = True
 kernel=np.array([[0,1,1,1,0],
                  [1,1,1,1,1],
                  [1,1,1,1,1],
@@ -15,8 +16,7 @@ erosion=np.zeros((row,col),dtype=int)
 
 for i in range(row):
     for j in range(col):
-        tmp=im.getpixel((i,j))
-        if tmp>=128:
+        if img[i][j]>=128:
             img[i][j]=1
         else:
             img[i][j]=0
@@ -30,7 +30,6 @@ for i in range(row-4):
         
         if tmp==21:
             erosion[i+2][j+2]=255
-erosion=erosion.transpose()
 im=Image.fromarray(erosion)
 im=im.convert("L")
 im.show()
