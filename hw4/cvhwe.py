@@ -4,8 +4,11 @@ import numpy as np
 im=Image.open("lena.bmp")
 row,col=im.size
 
-img=np.empty((row,col),dtype=int)
-img_c=np.empty((row,col),dtype=int)
+img=np.asarray(im)
+img_c=np.asarray(im)
+img.flags.writeable = True
+img_c.flags.writeable = True
+
 J=np.array([[0,0,0],
             [1,1,0],
             [0,1,0]])
@@ -16,8 +19,7 @@ K=np.array([[0,1,1],
 
 for i in range(row):
     for j in range(col):
-        tmp=im.getpixel((i,j))
-        if tmp>=128:
+        if img[i][j]>=128:
             img[i][j]=1
             img_c[i][j]=0
         else:
@@ -54,7 +56,6 @@ for i in range(row):
         if AJ[i][j]==1 and ACK[i][j]==1:
             HitAndMiss[i][j]=255
 
-HitAndMiss=HitAndMiss.transpose()
 im=Image.fromarray(HitAndMiss)
 im=im.convert("L")
 im.show()
