@@ -30,7 +30,8 @@ for i in range(row):
                 for y in range(-2,3,1):
                     if j+y>=512:
                         break
-                    dilation[i+x][j+y]=255
+                    if kernel[x+2][y+2]==1:
+                        dilation[i+x][j+y]=255
 
 im=Image.fromarray(dilation)
 im=im.convert("L")

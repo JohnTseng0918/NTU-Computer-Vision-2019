@@ -27,7 +27,7 @@ for i in range(row-4):
         for x in range(5):
             for y in range(5):
                 tmp=tmp+kernel[x][y]*img[i+x][j+y]
-        
+                
         if tmp==21:
             erosion[i+2][j+2]=255
 im=Image.fromarray(erosion)
